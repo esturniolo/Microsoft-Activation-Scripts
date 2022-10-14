@@ -1,3 +1,31 @@
+## Eas Notes
+If the orignal repo dissapear, the `https://massgrave.dev/get` content is the following:
+
+```
+# Enable TLSv1.2 for compatibility with older clients
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
+
+$DownloadURL = 'https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version/MAS_AIO.cmd'
+
+$FilePath = "$env:TEMP\MAS.cmd"
+
+try {
+    Invoke-WebRequest -Uri $DownloadURL -UseBasicParsing -OutFile $FilePath
+} catch {
+    Write-Error $_
+	Return
+}
+
+if (Test-Path $FilePath) {
+    Start-Process $FilePath -Wait
+    $item = Get-Item -LiteralPath $FilePath
+    $item.Delete()
+}
+```
+Entering manually to that url, it turns to `https://massgrave.dev/get.ps1`
+I think that I should change the URL to another URL that point to the `.cmd` file or use the Method 2 - Traditional
+
+
 ## Microsoft Activation Scripts (MAS):
 
 A Windows and Office activator using HWID / KMS38 / Online KMS activation methods, with a focus on open-source code and fewer antivirus detections.
